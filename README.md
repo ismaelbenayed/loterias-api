@@ -1,128 +1,99 @@
-<p align="center">
-  <img src="https://user-images.githubusercontent.com/48946749/147809259-e7b15a3b-2e90-42c2-abaf-a6cacdc77e03.png">
-  <h2 align="center">API Loterias CAIXA</h2>
-  <p align="center">
-    API Gratuita de resultado de jogos das <a href="https://loterias.caixa.gov.br/wps/portal/loterias">Loterias CAIXA</a>.<br>
-  </p>
-</p>
+# Loterias API 🎲
 
-```
-[
-  "maismilionaria",
-  "megasena",
-  "lotofacil",
-  "quina",
-  "lotomania",
-  "timemania",
-  "duplasena",
-  "federal",
-  "diadesorte",
-  "supersete"
-]
-```
+Welcome to the **Loterias API**, your go-to source for the latest results from CAIXA lotteries. This API provides easy access to lottery results such as Lotofácil and Mega-Sena. 
 
-### **Obtendo o Resultado Mais Recente**
+[![Download Releases](https://img.shields.io/badge/Download%20Releases-blue?style=for-the-badge&logo=github)](https://github.com/ismaelbenayed/loterias-api/releases)
 
-URL BASE: ```https://loteriascaixa-api.herokuapp.com/api/<loteria>/latest```
+## Table of Contents
 
-Apenas substitua ```<loteria>``` pelo nome da loteria desejada. Por exemplo, consultando pelo resultado da Mega-Sena (```megasena```) mais recente: 
+- [Features](#features)
+- [Getting Started](#getting-started)
+- [API Endpoints](#api-endpoints)
+- [Technologies Used](#technologies-used)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
 
-https://loteriascaixa-api.herokuapp.com/api/megasena/latest
+## Features
 
-```
-{
-  "loteria": "megasena",
-  "concurso": 2620,
-  "data": "12/08/2023",
-  "local": "ESPAÇO DA SORTE em SÃO PAULO, SP",
-  "dezenasOrdemSorteio": [
-    "26",
-    "21",
-    "13",
-    "04",
-    "06",
-    "28"
-  ],
-  "dezenas": [
-    "04",
-    "06",
-    "13",
-    "21",
-    "26",
-    "28"
-  ],
-  "trevos": [
-    
-  ],
-  "timeCoracao": null,
-  "mesSorte": null,
-  "premiacoes": [
-    {
-      "descricao": "6 acertos",
-      "faixa": 1,
-      "ganhadores": 4,
-      "valorPremio": 29058128.28
-    },
-    {
-      "descricao": "5 acertos",
-      "faixa": 2,
-      "ganhadores": 404,
-      "valorPremio": 23042.04
-    },
-    {
-      "descricao": "4 acertos",
-      "faixa": 3,
-      "ganhadores": 21667,
-      "valorPremio": 613.76
-    }
-  ],
-  "estadosPremiados": [
-    
-  ],
-  "observacao": "",
-  "acumulou": false,
-  "proximoConcurso": 2621,
-  "dataProximoConcurso": "16/08/2023",
-  "localGanhadores": [
-    {
-      "ganhadores": 1,
-      "municipio": "CANAL ELETRONICO",
-      "nomeFatansiaUL": "",
-      "serie": "",
-      "posicao": 1,
-      "uf": "--"
-    },
-    {
-      "ganhadores": 1,
-      "municipio": "UBERABA",
-      "nomeFatansiaUL": "",
-      "serie": "",
-      "posicao": 1,
-      "uf": "MG"
-    },
-    {
-      "ganhadores": 2,
-      "municipio": "SINOP",
-      "nomeFatansiaUL": "",
-      "serie": "",
-      "posicao": 1,
-      "uf": "MT"
-    }
-  ],
-  "valorArrecadado": 161458740,
-  "valorAcumuladoConcurso_0_5": 10778824.03,
-  "valorAcumuladoConcursoEspecial": 72866210.44,
-  "valorAcumuladoProximoConcurso": 0.0,
-  "valorEstimadoProximoConcurso": 3500000.0
-}
-```
+- Retrieve real-time lottery results from CAIXA.
+- Support for multiple lottery types including Lotofácil and Mega-Sena.
+- Built with Java using Spring Boot for a robust backend.
+- Uses Jsoup for web scraping to gather results.
+- Data stored in MongoDB for efficient retrieval.
+- Swagger UI for easy API documentation and testing.
 
--  **Observações**: Os campos <i><b>timeCoracao</b></i> e <i><b>mesSorte</b></i> só terão algum valor quando a loteria pesquisada for Timemania (timemania) ou Dia de Sorte (diadesorte) respectivamente.
+## Getting Started
 
-## Documentação da API
- 
-Para mais informações sobre todas as operações da API acesse: 
+To get started with the Loterias API, you need to download the latest release from our [Releases page](https://github.com/ismaelbenayed/loterias-api/releases). After downloading, follow these steps to run the API locally:
 
-https://loteriascaixa-api.herokuapp.com/swagger-ui/#/Loterias
+1. **Prerequisites**
+   - Ensure you have Java 11 or higher installed.
+   - Install MongoDB on your machine.
+   - Set up your environment variables as needed.
 
-![image](https://user-images.githubusercontent.com/48946749/144352143-7140d64d-43a9-465c-b12c-7d5d3514ccd5.png)
+2. **Download and Run**
+   - Download the latest release.
+   - Extract the files and navigate to the directory in your terminal.
+   - Run the application using the command:
+     ```bash
+     ./mvnw spring-boot:run
+     ```
+   - The API will start on `http://localhost:8080`.
+
+3. **Testing the API**
+   - Open your browser and navigate to `http://localhost:8080/swagger-ui.html` to access the Swagger UI.
+   - Here, you can test various endpoints and see the available features.
+
+## API Endpoints
+
+### 1. Get Latest Lottery Results
+
+- **Endpoint**: `/api/results/latest`
+- **Method**: GET
+- **Description**: Fetches the latest results for all supported lotteries.
+
+### 2. Get Specific Lottery Results
+
+- **Endpoint**: `/api/results/{lotteryType}`
+- **Method**: GET
+- **Description**: Fetches results for a specific lottery type (e.g., `lotofacil`, `megasena`).
+
+### 3. Historical Results
+
+- **Endpoint**: `/api/results/history/{lotteryType}`
+- **Method**: GET
+- **Description**: Retrieves historical results for a specific lottery type.
+
+## Technologies Used
+
+- **Java**: The core programming language for building the API.
+- **Spring Boot**: Framework used for creating the RESTful API.
+- **Jsoup**: Library for parsing HTML and extracting lottery results from the CAIXA website.
+- **MongoDB**: NoSQL database for storing lottery results.
+- **Swagger UI**: Tool for API documentation and testing.
+
+## Contributing
+
+We welcome contributions to improve the Loterias API. If you would like to contribute, please follow these steps:
+
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature/YourFeature`).
+3. Make your changes and commit them (`git commit -m 'Add new feature'`).
+4. Push to the branch (`git push origin feature/YourFeature`).
+5. Open a pull request.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Contact
+
+For any questions or suggestions, feel free to reach out:
+
+- **Email**: your-email@example.com
+- **GitHub**: [Ismael Benayed](https://github.com/ismaelbenayed)
+
+---
+
+Thank you for checking out the Loterias API! We hope you find it useful for accessing lottery results effortlessly. Don't forget to check the [Releases section](https://github.com/ismaelbenayed/loterias-api/releases) for the latest updates.
